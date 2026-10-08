@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Audio → Kode</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0d1117;color:#fff;padding:20px}
+.box{max-width:760px;margin:auto;background:#161b22;border:1px solid #30363d;border-radius:18px;padding:20px}
+h1{margin-top:0}.drop{border:2px dashed #58a6ff;border-radius:14px;padding:30px;text-align:center;cursor:pointer}
+input{display:none}audio{width:100%;margin:18px 0}.row{display:flex;gap:10px;flex-wrap:wrap}
+button{border:0;border-radius:10px;padding:12px 16px;cursor:pointer;font-weight:bold}
+.primary{background:#238636;color:#fff}.copy{background:#1f6feb;color:#fff}
+textarea{width:100%;min-height:240px;margin-top:15px;background:#0d1117;color:#d1d5db;border:1px solid #30363d;border-radius:12px;padding:14px;font-family:monospace;font-size:14px}
+.small{color:#8b949e;font-size:13px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>🎙️ Audio → Kode</h1>
+<p class="small">Upload audio untuk memutar file di browser. Jika browser mendukung Speech Recognition, ucapan dapat ditranskripsikan menjadi teks yang kemudian bisa disalin.</p>
+
+<label class="drop" for="file">📁 Pilih file audio<br><span class="small">MP3, WAV, M4A, OGG, dll.</span></label>
+<input id="file" type="file" accept="audio/*">
+
+<audio id="player" controls></audio>
+
+<div class="row">
+<button class="primary" id="start">▶ Mulai transkripsi</button>
+<button id="stop">⏹ Berhenti</button>
+<button class="copy" id="copy">📋 Salin hasil</button>
+</div>
+
+<textarea id="result" placeholder="Hasil transkripsi akan muncul di sini..."></textarea>
+<p id="status" class="small"></p>
+</div>
+
+<script>
+const fileInput=document.getElementById("file");
+const player=document.getElementById("player");
+const result=document.getElementById("result");
+const status=document.getElementById("status");
+let recognition=null, running=false;
+
+fileInput.addEventListener("change",()=>{
+  const file=fileInput.files[0];
+  if(!file)return;
+  player.src=URL.createObjectURL(file);
+  status.textContent="File siap diputar.";
+});
+
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+
+if(SR){
+  recognition=new SR();
+  recognition.lang="id-ID";
+  recognition.continuous=true;
+  recognition.interimResults=true;
+
+  recognition.onresult=e=>{
+    let text="";
+    for(let i=0;i<e.results.length;i++){
+      text+=e.results[i][0].transcript+" ";
+    }
+    result.value=text.trim();
+  };
+
+  recognition.onerror=e=>{
+    status.textContent="Transkripsi gagal: "+e.error+
+      ". Untuk audio yang sudah tersimpan, browser tidak selalu bisa mengirim suara file langsung ke Speech Recognition.";
+  };
+
+  recognition.onend=()=>{
+    if(running) status.textContent="Transkripsi berhenti.";
+  };
+}else{
+  status.textContent="Speech Recognition tidak didukung browser ini.";
+}
+
+document.getElementById("start").onclick=()=>{
+  if(!fileInput.files[0]){
+    status.textContent="Pilih file audio terlebih dahulu.";
+    return;
+  }
+  if(!recognition){
+    status.textContent="Gunakan Chrome/Edge yang mendukung Speech Recognition.";
+    return;
+  }
+  running=true;
+  status.textContent="Transkripsi dimulai. Putar audio lalu izinkan mikrofon jika diminta.";
+  recognition.start();
+  player.play().catch(()=>{});
+};
+
+document.getElementById("stop").onclick=()=>{
+  running=false;
+  if(recognition) try{recognition.stop()}catch(e){}
+  player.pause();
+  status.textContent="Berhenti.";
+};
+
+document.getElementById("copy").onclick=async()=>{
+  await navigator.clipboard.writeText(result.value);
+  status.textContent="Hasil berhasil disalin.";
+};
+</script>
+</body>
+</html>
