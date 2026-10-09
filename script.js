@@ -1,6 +1,6 @@
 /* MOMENTARY V3 — edit the data below to replace your media and text. */
 const CONFIG={siteName:'MOMENTARY',subtitle:'Jejak Kenangan',gallery:[
- {src:'media/photos/02.jpg',title:'A LITTLE MOMENT',date:'2026'},
+ {src:'319423530/668622732-7ab89143-c7b4-44b5-a5ef-0aed7a550af1.jpg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3OTE0NjU5NzcsIm5iZiI6MTc5MTQ2NTY3NywicGF0aCI6Ii8zMTk0MjM1MzAvNjY4NjIyNzMyLTdhYjg5MTQzLWM3YjQtNDRiNS1hNWVmLTBhZWQ3YTU1MGFmMS5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYxMDA4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MTAwOFQxMzIxMTdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00ZmM3NmM1MDcwMGRmZDVlNWI1OTI2OWRmYmRlY2Q1NjQ5YjVlNzU1ZjFkMjZlZTNiYTA0NzUxNDc2ZDllYTVmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZqcGVnIn0.TJCNK_WC32WWNmKEJ12RukdVuhHFFeHtTOeOjEZswRQ/photos/02.jpg',title:'A LITTLE MOMENT',date:'2026'},
  {src:'media/photos/03.jpg',title:'TOGETHER',date:'2026'},
  {src:'media/photos/04.jpg',title:'GOOD TIMES',date:'2026'},
  {src:'media/photos/05.jpg',title:'ONE FOR THE ARCHIVE',date:'2026'},
