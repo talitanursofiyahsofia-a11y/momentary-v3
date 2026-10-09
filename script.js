@@ -1,6 +1,40 @@
 
 /* MOMENTARY V3 — FIXED MEDIA LOADER */
 
+
+  // FOTO UTAMA — buat elemen gambar jika belum ada
+  const featured =
+    document.querySelector(".featured .media.photo") ||
+    document.querySelector(".featured .media") ||
+    document.querySelector(".featured");
+
+  if (featured) {
+    let featuredImg = featured.querySelector("img");
+
+    if (!featuredImg) {
+      featured.replaceChildren();
+      featuredImg = document.createElement("img");
+      featured.appendChild(featuredImg);
+    }
+
+    featuredImg.src = "media/photos/01.jpg";
+    featuredImg.alt = "Foto utama MOMENTARY";
+    featuredImg.loading = "eager";
+    featuredImg.style.width = "100%";
+    featuredImg.style.height = "100%";
+    featuredImg.style.objectFit = "cover";
+    featuredImg.style.display = "block";
+
+    featuredImg.onerror = () => {
+      console.error(
+        "Foto utama tidak ditemukan. Periksa media/photos/01.jpg"
+      );
+    };
+  } else {
+    console.error("Kontainer FOTO UTAMA tidak ditemukan di index.html");
+  }
+
+
 const CONFIG = {
   siteName: "MOMENTARY",
   subtitle: "Jejak Kenangan",
